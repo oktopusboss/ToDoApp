@@ -1,0 +1,51 @@
+{% extends 'todo/layout.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'todo:logout' %}">Logout</a>
+<h1>What will you do today, {{ user }}?</h1>
+        <div class="input-container">
+            <form method="POST" action="{% url 'todo:add_task' %}">
+                {% csrf_token %}
+                <!-- <input type="text" id="input" name="task" class="form-control" placeholder="Add a new item..."> -->
+                <!-- <select id="priority" class="form-control" name="priority">
+                    <option value="1">Priority 1</option>
+                    <option value="2">Priority 2</option>
+                    <option value="3">Priority 3</option>
+                </select> -->
+                {{ form }}
+                <!-- <button onclick="addTask()" id="addBtn" class="btn btn-primary">Add</button> -->
+                <button id="addBtn" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+        <div id="lists-container" class="mt-4">
+            <ul id="task-list-1" class="task-list list-group">
+                <h4>Priority 1</h4>
+                {% for task in tasks %}
+                    {% if task.priority == 1 %}
+                        <li><input type="checkbox" id="{{ task.id }}" class="form-check-input"><span class="task-text">{{ task.name }}</span></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul id="task-list-2" class="task-list list-group">
+                <h4>Priority 2</h4>
+                {% for task in tasks %}
+                {% if task.priority == 2 %}
+                    <li><input type="checkbox" id="{{ task.id }}" class="form-check-input"><span class="task-text">{{ task.name }}</span></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+            <ul id="task-list-3" class="task-list list-group">
+                <h4>Priority 3</h4>
+                {% for task in tasks %}
+                {% if task.priority == 3 %}
+                    <li><input type="checkbox" id="{{ task.id }}" class="form-check-input"><span class="task-text">{{ task.name }}</span></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+{% endblock %}
+        </div>
+    </div>
+    <script src="{% static 'todo/app.js' %}"></script>
+</body>
+</html>
