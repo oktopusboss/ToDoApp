@@ -5,32 +5,6 @@ const addBtn = document.getElementById("addBtn");
 const listsContainer = document.getElementById("lists-container");
 const csrfToken = document.getElementsByName('csrfmiddlewaretoken')[0].value
 
-// function addTask() {
-//     console.log("addTask ran")
-//     const task = input.value
-//     if (task.trim() === "") {
-//         return;
-//     }
-//     const taskPriority = priority.value;
-//     console.log(taskPriority);
-//     const taskItem = document.createElement("li");
-//     const taskText = document.createElement("span");
-//     taskText.classList.add("task-text")
-
-//     const checkbox = document.createElement("input");
-//     checkbox.classList.add("form-check-input")
-//     checkbox.type = "checkbox";
-
-//     taskText.textContent = task;
-//     taskItem.appendChild(checkbox);
-//     taskItem.appendChild(taskText);
-//     const taskList1 = document.getElementById("task-list-" + taskPriority)
-    
-//     taskList1.appendChild(taskItem);
-//     console.log(taskItem)
-//     input.value = "";
-// }
-
 
 // add event listener to the add button
 addBtn.addEventListener("click", function() {
