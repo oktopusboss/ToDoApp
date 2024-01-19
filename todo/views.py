@@ -11,26 +11,11 @@ import json
 
 # Create your views here.
 
-# tasks = [
-#     {"id": 1, "name": "Make video", "description": "make vid for course", "priority": 1}, 
-#     {"id": 2, "name": "Do dishes", "description": "wash dishes", "priority": 2},
-#     {"id": 3, "name": "Hit the griddy", "description": "hit the griddy", "priority": 3}]
-
-# def get_task_by_id(task_id):
-#     for task in tasks:
-#         if task["id"] == task_id:
-#             return task
-#     return None
 
 @login_required(login_url='todo:login')
 def index(request):
     task_form = TaskForm()
-    # print(request.session['tasks'])
-    # if 'tasks' not in request.session:
-    #     request.session['tasks'] = []
     tasks = TaskModel.objects.filter(user=request.user)
-    # print(request.user)
-    # ctx = {"tasks": request.session['tasks'], "form": taskform}
     ctx = {"tasks": tasks, "form": task_form, "user": request.user}
     return render(request, "todo/index.html", ctx)
 
@@ -78,20 +63,15 @@ def delete_task(request):
     return HttpResponseRedirect(reverse('todo:index'))
 
 def add_task(request):
-    # print(request.POST)
-    # request.session["hello"] = "world"
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            # print(form.cleaned_data)
             task = TaskModel(
                 user=request.user,
                 name=form.cleaned_data['task'],
                 description=form.cleaned_data['description'],
                 priority=int(form.cleaned_data['priority']),)
-            # request.session['tasks'].append(task)
             task.save()
-            # request.session.save()
     return HttpResponseRedirect(reverse('todo:index'))
 
 def task(request, id):
